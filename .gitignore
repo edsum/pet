@@ -1,0 +1,44 @@
+# macOS
+.DS_Store
+
+# Xcode
+build/
+DerivedData/
+*.xcuserstate
+*.xcuserdatad/
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+*.moved-aside
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Packages/DeskPetKit/.build/
+Packages/DeskPetKit/.swiftpm/
+
+# CocoaPods (备选依赖管理，本项目未用)
+Pods/
+
+# fastlane (备选发布工具)
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# 本地配置（不进 git）
+*.local.xcconfig
+*.local.env
+
+# 构建产物
+*.ipa
+*.app
+*.dSYM.zip
+*.dSYM
+
+# VSCode / IntelliJ
+.vscode/
+.idea/
+
+# Node（备选前端工具）
+node_modules/
