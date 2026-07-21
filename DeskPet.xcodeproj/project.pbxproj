@@ -1,0 +1,896 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0666275DBD19246A6BFE6285 /* DeskPetWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30DC8A87BA9BFCA68D3F2195 /* DeskPetWidgetBundle.swift */; };
+		098CEA334143641CB6D33E54 /* GamesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41ADC24AC68442B3F128B3A8 /* GamesView.swift */; };
+		0E72F6BB90DE21A068E36465 /* EventEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC7ABE26E3D2F99EA1AC81C /* EventEngine.swift */; };
+		0E7AF0A0E04327D6F203D5C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A89559D17371E945B9948BAC /* Assets.xcassets */; };
+		129E3D075A38F68DC0FC5FA2 /* HealthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB942B7B7A53FC8A6131E02 /* HealthProvider.swift */; };
+		19E1BAA61C48B3601D96E059 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70FDE0A6E83CF340D71870D0 /* RootView.swift */; };
+		1FE456726E7CAC17EF1D5B2C /* SystemEventOrchestrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D18450C306292B1160142F /* SystemEventOrchestrator.swift */; };
+		252255573DAF040D669D2070 /* MacAdaptations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A2729BFD04B4796366347D8 /* MacAdaptations.swift */; };
+		255E2FF6C55268696EAD00F0 /* PetScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D92679CBD0F8318239F60D /* PetScene.swift */; };
+		283D0AE730A116A3C072BD51 /* MinigameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5030A47293E98A33882AC7B9 /* MinigameScene.swift */; };
+		29E96713D7B96DEA1564A1EE /* MinigameContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BACE8E9C0892DBAAEFA34DA /* MinigameContainer.swift */; };
+		2A29DF3EB0F242304CF13AC8 /* MenuBarPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3180F4E3854A8286C13F0F11 /* MenuBarPetView.swift */; };
+		32870146C419B6AAB8BBD265 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDC7D49FDD9E61FFB876EB37 /* Platform.swift */; };
+		385559ED0174DE5D008B02E2 /* CheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F4E373DE50D9FAC2E2846A0 /* CheckInView.swift */; };
+		3A904F680E60D84DF1BDCB8C /* PetNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A08C5B66038204C52F4D982 /* PetNode.swift */; };
+		3FA99816C8ABA60930E2E0AE /* PetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E439DE27D277AA40F99BB2 /* PetViewModel.swift */; };
+		457FB34D5900276F3B42649E /* AchievementsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7B2490215C3E486745EBAB3 /* AchievementsView.swift */; };
+		477653E7B63D182D1FD688C0 /* WatchStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307E3A4F2111FB2E687EF841 /* WatchStore.swift */; };
+		48C71262A3643A67F410DFDA /* WatchContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C27EEA70C751CB03D4363D1 /* WatchContentView.swift */; };
+		4ED93113D5D737BB87DE38E1 /* SystemEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB87A3E5932572869D5FD65 /* SystemEventProvider.swift */; };
+		506761E59BD5D84010C43565 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AA46D4588D223615D0F22B2 /* SettingsView.swift */; };
+		6E69F028DB29725BD8B8ABD4 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BBBAF25297481EDBEA52589 /* HomeView.swift */; };
+		8245BEBAFC9DE4614F5FAF62 /* StandByPetWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA7DE05EDBB14018003CD89 /* StandByPetWidget.swift */; };
+		84ECCE4B94BA0F1AC991ECD6 /* LockScreenPetWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEFADAD294FAEA7508DAEDE /* LockScreenPetWidget.swift */; };
+		85337E1B69626A980002CAB0 /* PetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E626229BEFBBE65516B8F83 /* PetLiveActivity.swift */; };
+		854CAFEEAD57734DF40FF593 /* FocusModeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55037DBA563BFDF0805D57E2 /* FocusModeProvider.swift */; };
+		8B7BA73AE5AF25FE74C2B64E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9ED50A420E5D99C32D9330F9 /* Assets.xcassets */; };
+		8F4152BD379C0DC98321A96E /* DeskPetWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 17CB7E3EF6391366BD978622 /* DeskPetWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A6E3F26EA5E384BF25F084F4 /* HomePetWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 668366022B3A3159F2BDEA67 /* HomePetWidget.swift */; };
+		AB0215E4357D7ED684A4F2FC /* BathScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57FC8E7825FE2301E7C449D5 /* BathScene.swift */; };
+		ADFF8D656D3D9AB2403EC713 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69320E771509CB19449B0D0 /* Assets.xcassets */; };
+		B0905EB1C9378E8646C18D48 /* DeskPetKit in Frameworks */ = {isa = PBXBuildFile; productRef = D047AEBBD8CA2B3BE2E0E4C8 /* DeskPetKit */; };
+		B390C6627FCC7900AC0D3A3A /* PetSwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F37CA43C4C473E05B07A2F /* PetSwitcherView.swift */; };
+		B6C3CD53F35F97B9230A87D0 /* DebugOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E17C9793E2196FD1241ABA8 /* DebugOverlay.swift */; };
+		B9F0E0653803E6D6FADA5BEB /* StatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3655DDE717FB64EAE917FF /* StatsView.swift */; };
+		BAD2838B9939FDA3B4AD3B64 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D30BAEA543AA5CB186CB8901 /* OnboardingView.swift */; };
+		C9408D54C9D66381D1F9CF4F /* ShopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35480228E9B17FE7E27D471 /* ShopView.swift */; };
+		D3A2571599BC44E679E536DE /* CatchBallScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36503B24AF34F1F5D97EA32B /* CatchBallScene.swift */; };
+		D4F2AB719B88E18736F0C5DD /* MacAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 861B790A60572BE10F7E9B4E /* MacAppDelegate.swift */; };
+		D7FF233A90561755FAB84AA1 /* WeatherProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 375A1DAA83F55EF166BE99D6 /* WeatherProvider.swift */; };
+		D858B089DC5C4AED2514D9D0 /* RhythmScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43443753E78AC114D9C64049 /* RhythmScene.swift */; };
+		D90289E1301FF0D5222A5909 /* DeskPetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 148DF10B5372143D85343BD7 /* DeskPetApp.swift */; };
+		DBEFBF0062A7273ABEA2CE9D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E69E1F2ADC10510F8107E376 /* PrivacyInfo.xcprivacy */; };
+		E1B99A2FD8F7716B629CBE25 /* DeskPetWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2A800EF3C650824A8329E4 /* DeskPetWatchApp.swift */; };
+		E27B2280DC2C6268A60A94E5 /* DeskPetKit in Frameworks */ = {isa = PBXBuildFile; productRef = 691E06D23B420A27FFC5E204 /* DeskPetKit */; };
+		E53C5BE53F93DFA587E0C29A /* DeskPetKit in Frameworks */ = {isa = PBXBuildFile; productRef = B1BC7BB32D0BD22C9870BBEE /* DeskPetKit */; };
+		E73B7BE60555733CFDFCE718 /* PetIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607AA802594DC5B065DB5940 /* PetIntents.swift */; };
+		E7C6565F0E4E6DD6D06DDD5C /* PetSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A613AE00A1C05ABF69538CB3 /* PetSceneView.swift */; };
+		F19492E666EF0D78F198AA5D /* CalendarProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E24374B64CCDFB5AEFC385 /* CalendarProvider.swift */; };
+		FA130205D719890E2BB84960 /* EvolutionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B1B495E842F27EFAC90B88 /* EvolutionView.swift */; };
+		FB809C4E0DCBACBE01190066 /* GenerateAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97DCD47FB90A06304F1DBFA1 /* GenerateAvatarView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FB4A17A5D4F9832FA9D7AE7C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B496CD8C724FA2D651636F62 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BB6991ECB534AB18B868275E;
+			remoteInfo = DeskPetWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A3C2689F299C5C7B1D198C37 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8F4152BD379C0DC98321A96E /* DeskPetWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		09E24374B64CCDFB5AEFC385 /* CalendarProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarProvider.swift; sourceTree = "<group>"; };
+		0A08C5B66038204C52F4D982 /* PetNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetNode.swift; sourceTree = "<group>"; };
+		0D2A800EF3C650824A8329E4 /* DeskPetWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskPetWatchApp.swift; sourceTree = "<group>"; };
+		148DF10B5372143D85343BD7 /* DeskPetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskPetApp.swift; sourceTree = "<group>"; };
+		17CB7E3EF6391366BD978622 /* DeskPetWidgetExtension.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = DeskPetWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		307E3A4F2111FB2E687EF841 /* WatchStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchStore.swift; sourceTree = "<group>"; };
+		30DC8A87BA9BFCA68D3F2195 /* DeskPetWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskPetWidgetBundle.swift; sourceTree = "<group>"; };
+		3180F4E3854A8286C13F0F11 /* MenuBarPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBarPetView.swift; sourceTree = "<group>"; };
+		35C4A2D2E256B908CE8198FE /* DeskPetWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeskPetWatch.entitlements; sourceTree = "<group>"; };
+		36503B24AF34F1F5D97EA32B /* CatchBallScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchBallScene.swift; sourceTree = "<group>"; };
+		375A1DAA83F55EF166BE99D6 /* WeatherProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherProvider.swift; sourceTree = "<group>"; };
+		3C3655DDE717FB64EAE917FF /* StatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsView.swift; sourceTree = "<group>"; };
+		3D31ACA2303BE7E59920CC25 /* DeskPet.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DeskPet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		41ADC24AC68442B3F128B3A8 /* GamesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesView.swift; sourceTree = "<group>"; };
+		43443753E78AC114D9C64049 /* RhythmScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RhythmScene.swift; sourceTree = "<group>"; };
+		4C27EEA70C751CB03D4363D1 /* WatchContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchContentView.swift; sourceTree = "<group>"; };
+		4C743091506535E472E3F750 /* DeskPet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeskPet.entitlements; sourceTree = "<group>"; };
+		4CA7DE05EDBB14018003CD89 /* StandByPetWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandByPetWidget.swift; sourceTree = "<group>"; };
+		4E17C9793E2196FD1241ABA8 /* DebugOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugOverlay.swift; sourceTree = "<group>"; };
+		4E626229BEFBBE65516B8F83 /* PetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetLiveActivity.swift; sourceTree = "<group>"; };
+		5030A47293E98A33882AC7B9 /* MinigameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinigameScene.swift; sourceTree = "<group>"; };
+		52D18450C306292B1160142F /* SystemEventOrchestrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemEventOrchestrator.swift; sourceTree = "<group>"; };
+		55037DBA563BFDF0805D57E2 /* FocusModeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusModeProvider.swift; sourceTree = "<group>"; };
+		57FC8E7825FE2301E7C449D5 /* BathScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BathScene.swift; sourceTree = "<group>"; };
+		607AA802594DC5B065DB5940 /* PetIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetIntents.swift; sourceTree = "<group>"; };
+		668366022B3A3159F2BDEA67 /* HomePetWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePetWidget.swift; sourceTree = "<group>"; };
+		70E49849C0C46CD78138B9DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		70FDE0A6E83CF340D71870D0 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		7AA46D4588D223615D0F22B2 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7BACE8E9C0892DBAAEFA34DA /* MinigameContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinigameContainer.swift; sourceTree = "<group>"; };
+		7BBBAF25297481EDBEA52589 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		7F4E373DE50D9FAC2E2846A0 /* CheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInView.swift; sourceTree = "<group>"; };
+		861B790A60572BE10F7E9B4E /* MacAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacAppDelegate.swift; sourceTree = "<group>"; };
+		8A2729BFD04B4796366347D8 /* MacAdaptations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacAdaptations.swift; sourceTree = "<group>"; };
+		97B1B495E842F27EFAC90B88 /* EvolutionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvolutionView.swift; sourceTree = "<group>"; };
+		97DCD47FB90A06304F1DBFA1 /* GenerateAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateAvatarView.swift; sourceTree = "<group>"; };
+		9ED50A420E5D99C32D9330F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A35480228E9B17FE7E27D471 /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
+		A613AE00A1C05ABF69538CB3 /* PetSceneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSceneView.swift; sourceTree = "<group>"; };
+		A89559D17371E945B9948BAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A8D92679CBD0F8318239F60D /* PetScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetScene.swift; sourceTree = "<group>"; };
+		B8F37CA43C4C473E05B07A2F /* PetSwitcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSwitcherView.swift; sourceTree = "<group>"; };
+		BFB2ABE74951B3D00B340893 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C0123A1D281E44AFA039E233 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		C69320E771509CB19449B0D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CDB87A3E5932572869D5FD65 /* SystemEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemEventProvider.swift; sourceTree = "<group>"; };
+		D30BAEA543AA5CB186CB8901 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		DA0B8A5628783E11F0FA8676 /* DeskPetWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeskPetWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC3756A5FC02EA639451E871 /* DeskPetWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeskPetWidget.entitlements; sourceTree = "<group>"; };
+		E69E1F2ADC10510F8107E376 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		E9E439DE27D277AA40F99BB2 /* PetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetViewModel.swift; sourceTree = "<group>"; };
+		F13503E73271845C2750A9F3 /* DeskPetKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DeskPetKit; path = Packages/DeskPetKit; sourceTree = SOURCE_ROOT; };
+		F7B2490215C3E486745EBAB3 /* AchievementsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementsView.swift; sourceTree = "<group>"; };
+		FAB942B7B7A53FC8A6131E02 /* HealthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthProvider.swift; sourceTree = "<group>"; };
+		FAC7ABE26E3D2F99EA1AC81C /* EventEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventEngine.swift; sourceTree = "<group>"; };
+		FAEFADAD294FAEA7508DAEDE /* LockScreenPetWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockScreenPetWidget.swift; sourceTree = "<group>"; };
+		FDC7D49FDD9E61FFB876EB37 /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2F3D1CDA8D8EADE400D4B4F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E53C5BE53F93DFA587E0C29A /* DeskPetKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C01A84051A73E095EAEBDA35 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0905EB1C9378E8646C18D48 /* DeskPetKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C737376EA45A39EB7F7CE7D5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E27B2280DC2C6268A60A94E5 /* DeskPetKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		07A39E33D588B2806A9CD31A /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+				8A2729BFD04B4796366347D8 /* MacAdaptations.swift */,
+				861B790A60572BE10F7E9B4E /* MacAppDelegate.swift */,
+				3180F4E3854A8286C13F0F11 /* MenuBarPetView.swift */,
+				FDC7D49FDD9E61FFB876EB37 /* Platform.swift */,
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		20439168BDE32A62C0B93874 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3D31ACA2303BE7E59920CC25 /* DeskPet.app */,
+				DA0B8A5628783E11F0FA8676 /* DeskPetWatch.app */,
+				17CB7E3EF6391366BD978622 /* DeskPetWidgetExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		21FDBB2CA3BA5519470B57A3 /* DeskPetWatch */ = {
+			isa = PBXGroup;
+			children = (
+				2AFF35C2E037FA0A45EB01DC /* Resources */,
+				0D2A800EF3C650824A8329E4 /* DeskPetWatchApp.swift */,
+				4C27EEA70C751CB03D4363D1 /* WatchContentView.swift */,
+				307E3A4F2111FB2E687EF841 /* WatchStore.swift */,
+			);
+			path = DeskPetWatch;
+			sourceTree = "<group>";
+		};
+		2AFF35C2E037FA0A45EB01DC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C69320E771509CB19449B0D0 /* Assets.xcassets */,
+				35C4A2D2E256B908CE8198FE /* DeskPetWatch.entitlements */,
+				BFB2ABE74951B3D00B340893 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		3A29FDACE3805C24B366903D /* Games */ = {
+			isa = PBXGroup;
+			children = (
+				57FC8E7825FE2301E7C449D5 /* BathScene.swift */,
+				36503B24AF34F1F5D97EA32B /* CatchBallScene.swift */,
+				7BACE8E9C0892DBAAEFA34DA /* MinigameContainer.swift */,
+				5030A47293E98A33882AC7B9 /* MinigameScene.swift */,
+				43443753E78AC114D9C64049 /* RhythmScene.swift */,
+			);
+			path = Games;
+			sourceTree = "<group>";
+		};
+		46D86381260552F30CCC9B49 /* DeskPetWidget */ = {
+			isa = PBXGroup;
+			children = (
+				47B38C2B8B374EAEB243E76C /* LiveActivity */,
+				9A1825049232DC3469D73EB4 /* Resources */,
+				30DC8A87BA9BFCA68D3F2195 /* DeskPetWidgetBundle.swift */,
+				668366022B3A3159F2BDEA67 /* HomePetWidget.swift */,
+				FAEFADAD294FAEA7508DAEDE /* LockScreenPetWidget.swift */,
+				4CA7DE05EDBB14018003CD89 /* StandByPetWidget.swift */,
+			);
+			path = DeskPetWidget;
+			sourceTree = "<group>";
+		};
+		47B38C2B8B374EAEB243E76C /* LiveActivity */ = {
+			isa = PBXGroup;
+			children = (
+				4E626229BEFBBE65516B8F83 /* PetLiveActivity.swift */,
+			);
+			path = LiveActivity;
+			sourceTree = "<group>";
+		};
+		5CBA0716CEDD37B0674C9985 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				0A08C5B66038204C52F4D982 /* PetNode.swift */,
+				A8D92679CBD0F8318239F60D /* PetScene.swift */,
+				A613AE00A1C05ABF69538CB3 /* PetSceneView.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		63D7797C6FF6665FD44BC892 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E69E1F2ADC10510F8107E376 /* PrivacyInfo.xcprivacy */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		65BC84112CE5E26BB642BD58 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				41ADC24AC68442B3F128B3A8 /* GamesView.swift */,
+				97DCD47FB90A06304F1DBFA1 /* GenerateAvatarView.swift */,
+				7BBBAF25297481EDBEA52589 /* HomeView.swift */,
+				B8F37CA43C4C473E05B07A2F /* PetSwitcherView.swift */,
+				7AA46D4588D223615D0F22B2 /* SettingsView.swift */,
+				3C3655DDE717FB64EAE917FF /* StatsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		7F16C585C2A9B5A71026BC9A /* Progression */ = {
+			isa = PBXGroup;
+			children = (
+				F7B2490215C3E486745EBAB3 /* AchievementsView.swift */,
+				7F4E373DE50D9FAC2E2846A0 /* CheckInView.swift */,
+				97B1B495E842F27EFAC90B88 /* EvolutionView.swift */,
+				A35480228E9B17FE7E27D471 /* ShopView.swift */,
+			);
+			path = Progression;
+			sourceTree = "<group>";
+		};
+		9A1825049232DC3469D73EB4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9ED50A420E5D99C32D9330F9 /* Assets.xcassets */,
+				DC3756A5FC02EA639451E871 /* DeskPetWidget.entitlements */,
+				C0123A1D281E44AFA039E233 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B10DE875BA47E1B38BD59B80 /* DeskPet */ = {
+			isa = PBXGroup;
+			children = (
+				C7095671B0C0043E73DA9F02 /* Events */,
+				3A29FDACE3805C24B366903D /* Games */,
+				DB4A5D34118080B619CC6E68 /* Onboarding */,
+				07A39E33D588B2806A9CD31A /* Platform */,
+				7F16C585C2A9B5A71026BC9A /* Progression */,
+				F78A0B4DF927BFC24B2727A4 /* Resources */,
+				5CBA0716CEDD37B0674C9985 /* Scene */,
+				65BC84112CE5E26BB642BD58 /* Views */,
+				4E17C9793E2196FD1241ABA8 /* DebugOverlay.swift */,
+				148DF10B5372143D85343BD7 /* DeskPetApp.swift */,
+				FAC7ABE26E3D2F99EA1AC81C /* EventEngine.swift */,
+				607AA802594DC5B065DB5940 /* PetIntents.swift */,
+				E9E439DE27D277AA40F99BB2 /* PetViewModel.swift */,
+				70FDE0A6E83CF340D71870D0 /* RootView.swift */,
+			);
+			path = DeskPet;
+			sourceTree = "<group>";
+		};
+		BF134CB9F0CF725DBDDF1562 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				F13503E73271845C2750A9F3 /* DeskPetKit */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		C7095671B0C0043E73DA9F02 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				09E24374B64CCDFB5AEFC385 /* CalendarProvider.swift */,
+				55037DBA563BFDF0805D57E2 /* FocusModeProvider.swift */,
+				FAB942B7B7A53FC8A6131E02 /* HealthProvider.swift */,
+				52D18450C306292B1160142F /* SystemEventOrchestrator.swift */,
+				CDB87A3E5932572869D5FD65 /* SystemEventProvider.swift */,
+				375A1DAA83F55EF166BE99D6 /* WeatherProvider.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		DB4A5D34118080B619CC6E68 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				D30BAEA543AA5CB186CB8901 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		F78A0B4DF927BFC24B2727A4 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A89559D17371E945B9948BAC /* Assets.xcassets */,
+				4C743091506535E472E3F750 /* DeskPet.entitlements */,
+				70E49849C0C46CD78138B9DC /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		F980B99B6A5CC06578667243 = {
+			isa = PBXGroup;
+			children = (
+				B10DE875BA47E1B38BD59B80 /* DeskPet */,
+				21FDBB2CA3BA5519470B57A3 /* DeskPetWatch */,
+				46D86381260552F30CCC9B49 /* DeskPetWidget */,
+				BF134CB9F0CF725DBDDF1562 /* Packages */,
+				63D7797C6FF6665FD44BC892 /* Shared */,
+				20439168BDE32A62C0B93874 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7655C18016973BDEEF60DED5 /* DeskPetWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6D9871D82A3BF6E12A91B2FC /* Build configuration list for PBXNativeTarget "DeskPetWatch" */;
+			buildPhases = (
+				0F54634F23DF28AF304F3799 /* Sources */,
+				0BE576EDDDB8CD2154EEEF8B /* Resources */,
+				C01A84051A73E095EAEBDA35 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DeskPetWatch;
+			packageProductDependencies = (
+				D047AEBBD8CA2B3BE2E0E4C8 /* DeskPetKit */,
+			);
+			productName = DeskPetWatch;
+			productReference = DA0B8A5628783E11F0FA8676 /* DeskPetWatch.app */;
+			productType = "com.apple.product-type.application";
+		};
+		BB6991ECB534AB18B868275E /* DeskPetWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 863D1660F9FC9E493C41C32F /* Build configuration list for PBXNativeTarget "DeskPetWidgetExtension" */;
+			buildPhases = (
+				A76902A6593D54A3A39F99BB /* Sources */,
+				8535324F14DF034354157E00 /* Resources */,
+				C737376EA45A39EB7F7CE7D5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DeskPetWidgetExtension;
+			packageProductDependencies = (
+				691E06D23B420A27FFC5E204 /* DeskPetKit */,
+			);
+			productName = DeskPetWidgetExtension;
+			productReference = 17CB7E3EF6391366BD978622 /* DeskPetWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		EF3C4B0685784502087B0D34 /* DeskPet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0D47C16CEDD0AC28B72F167 /* Build configuration list for PBXNativeTarget "DeskPet" */;
+			buildPhases = (
+				370FCB1A11F901D14E22A047 /* Sources */,
+				5240C8CFA84E5A5A871B1E3B /* Resources */,
+				2F3D1CDA8D8EADE400D4B4F6 /* Frameworks */,
+				A3C2689F299C5C7B1D198C37 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E6DD746714F150A18D8B2419 /* PBXTargetDependency */,
+			);
+			name = DeskPet;
+			packageProductDependencies = (
+				B1BC7BB32D0BD22C9870BBEE /* DeskPetKit */,
+			);
+			productName = DeskPet;
+			productReference = 3D31ACA2303BE7E59920CC25 /* DeskPet.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B496CD8C724FA2D651636F62 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					7655C18016973BDEEF60DED5 = {
+						DevelopmentTeam = "";
+					};
+					BB6991ECB534AB18B868275E = {
+						DevelopmentTeam = "";
+					};
+					EF3C4B0685784502087B0D34 = {
+						DevelopmentTeam = "";
+					};
+				};
+			};
+			buildConfigurationList = 5C2D581922534F9D227BBAA4 /* Build configuration list for PBXProject "DeskPet" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = F980B99B6A5CC06578667243;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4E8F7EE1BC5D6D088E47832D /* XCLocalSwiftPackageReference "Packages/DeskPetKit" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 20439168BDE32A62C0B93874 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EF3C4B0685784502087B0D34 /* DeskPet */,
+				BB6991ECB534AB18B868275E /* DeskPetWidgetExtension */,
+				7655C18016973BDEEF60DED5 /* DeskPetWatch */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0BE576EDDDB8CD2154EEEF8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ADFF8D656D3D9AB2403EC713 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5240C8CFA84E5A5A871B1E3B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E7AF0A0E04327D6F203D5C2 /* Assets.xcassets in Resources */,
+				DBEFBF0062A7273ABEA2CE9D /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8535324F14DF034354157E00 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B7BA73AE5AF25FE74C2B64E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0F54634F23DF28AF304F3799 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E1B99A2FD8F7716B629CBE25 /* DeskPetWatchApp.swift in Sources */,
+				48C71262A3643A67F410DFDA /* WatchContentView.swift in Sources */,
+				477653E7B63D182D1FD688C0 /* WatchStore.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		370FCB1A11F901D14E22A047 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				457FB34D5900276F3B42649E /* AchievementsView.swift in Sources */,
+				AB0215E4357D7ED684A4F2FC /* BathScene.swift in Sources */,
+				F19492E666EF0D78F198AA5D /* CalendarProvider.swift in Sources */,
+				D3A2571599BC44E679E536DE /* CatchBallScene.swift in Sources */,
+				385559ED0174DE5D008B02E2 /* CheckInView.swift in Sources */,
+				B6C3CD53F35F97B9230A87D0 /* DebugOverlay.swift in Sources */,
+				D90289E1301FF0D5222A5909 /* DeskPetApp.swift in Sources */,
+				0E72F6BB90DE21A068E36465 /* EventEngine.swift in Sources */,
+				FA130205D719890E2BB84960 /* EvolutionView.swift in Sources */,
+				854CAFEEAD57734DF40FF593 /* FocusModeProvider.swift in Sources */,
+				098CEA334143641CB6D33E54 /* GamesView.swift in Sources */,
+				FB809C4E0DCBACBE01190066 /* GenerateAvatarView.swift in Sources */,
+				129E3D075A38F68DC0FC5FA2 /* HealthProvider.swift in Sources */,
+				6E69F028DB29725BD8B8ABD4 /* HomeView.swift in Sources */,
+				252255573DAF040D669D2070 /* MacAdaptations.swift in Sources */,
+				D4F2AB719B88E18736F0C5DD /* MacAppDelegate.swift in Sources */,
+				2A29DF3EB0F242304CF13AC8 /* MenuBarPetView.swift in Sources */,
+				29E96713D7B96DEA1564A1EE /* MinigameContainer.swift in Sources */,
+				283D0AE730A116A3C072BD51 /* MinigameScene.swift in Sources */,
+				BAD2838B9939FDA3B4AD3B64 /* OnboardingView.swift in Sources */,
+				E73B7BE60555733CFDFCE718 /* PetIntents.swift in Sources */,
+				3A904F680E60D84DF1BDCB8C /* PetNode.swift in Sources */,
+				255E2FF6C55268696EAD00F0 /* PetScene.swift in Sources */,
+				E7C6565F0E4E6DD6D06DDD5C /* PetSceneView.swift in Sources */,
+				B390C6627FCC7900AC0D3A3A /* PetSwitcherView.swift in Sources */,
+				3FA99816C8ABA60930E2E0AE /* PetViewModel.swift in Sources */,
+				32870146C419B6AAB8BBD265 /* Platform.swift in Sources */,
+				D858B089DC5C4AED2514D9D0 /* RhythmScene.swift in Sources */,
+				19E1BAA61C48B3601D96E059 /* RootView.swift in Sources */,
+				506761E59BD5D84010C43565 /* SettingsView.swift in Sources */,
+				C9408D54C9D66381D1F9CF4F /* ShopView.swift in Sources */,
+				B9F0E0653803E6D6FADA5BEB /* StatsView.swift in Sources */,
+				1FE456726E7CAC17EF1D5B2C /* SystemEventOrchestrator.swift in Sources */,
+				4ED93113D5D737BB87DE38E1 /* SystemEventProvider.swift in Sources */,
+				D7FF233A90561755FAB84AA1 /* WeatherProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A76902A6593D54A3A39F99BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0666275DBD19246A6BFE6285 /* DeskPetWidgetBundle.swift in Sources */,
+				A6E3F26EA5E384BF25F084F4 /* HomePetWidget.swift in Sources */,
+				84ECCE4B94BA0F1AC991ECD6 /* LockScreenPetWidget.swift in Sources */,
+				85337E1B69626A980002CAB0 /* PetLiveActivity.swift in Sources */,
+				8245BEBAFC9DE4614F5FAF62 /* StandByPetWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E6DD746714F150A18D8B2419 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BB6991ECB534AB18B868275E /* DeskPetWidgetExtension */;
+			targetProxy = FB4A17A5D4F9832FA9D7AE7C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		09926A9127720E7831C98B6F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DeskPet/Resources/DeskPet.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = DeskPet/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.deskpet.app;
+				PRODUCT_NAME = DeskPet;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		44255E931D797FE836795E45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DeskPetWidget/Resources/DeskPetWidget.entitlements;
+				INFOPLIST_FILE = DeskPetWidget/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.deskpet.app.DeskPetWidget;
+				PRODUCT_NAME = DeskPetWidget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		48D7C1862A0FEE134A61E39D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DeskPetWidget/Resources/DeskPetWidget.entitlements;
+				INFOPLIST_FILE = DeskPetWidget/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.deskpet.app.DeskPetWidget;
+				PRODUCT_NAME = DeskPetWidget;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4D185ED0E9150805D5EAD84A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = DeskPet/Resources/DeskPet.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = DeskPet/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.deskpet.app;
+				PRODUCT_NAME = DeskPet;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = YES;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8FF24E0286454943029CC478 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DeskPetWatch/Resources/DeskPetWatch.entitlements;
+				INFOPLIST_FILE = DeskPetWatch/Resources/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.deskpet.app.watchkitapp;
+				PRODUCT_NAME = DeskPetWatch;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		9EA436BF58382FBE7055892F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DeskPetWatch/Resources/DeskPetWatch.entitlements;
+				INFOPLIST_FILE = DeskPetWatch/Resources/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = com.deskpet.app.watchkitapp;
+				PRODUCT_NAME = DeskPetWatch;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		E4771F91972241BF5B98C6D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		E9084D4060456F0952DA1BF4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_VERSION = 5.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5C2D581922534F9D227BBAA4 /* Build configuration list for PBXProject "DeskPet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4771F91972241BF5B98C6D8 /* Debug */,
+				E9084D4060456F0952DA1BF4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		6D9871D82A3BF6E12A91B2FC /* Build configuration list for PBXNativeTarget "DeskPetWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9EA436BF58382FBE7055892F /* Debug */,
+				8FF24E0286454943029CC478 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		863D1660F9FC9E493C41C32F /* Build configuration list for PBXNativeTarget "DeskPetWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44255E931D797FE836795E45 /* Debug */,
+				48D7C1862A0FEE134A61E39D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		B0D47C16CEDD0AC28B72F167 /* Build configuration list for PBXNativeTarget "DeskPet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D185ED0E9150805D5EAD84A /* Debug */,
+				09926A9127720E7831C98B6F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		4E8F7EE1BC5D6D088E47832D /* XCLocalSwiftPackageReference "Packages/DeskPetKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/DeskPetKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		691E06D23B420A27FFC5E204 /* DeskPetKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DeskPetKit;
+		};
+		B1BC7BB32D0BD22C9870BBEE /* DeskPetKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DeskPetKit;
+		};
+		D047AEBBD8CA2B3BE2E0E4C8 /* DeskPetKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DeskPetKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = B496CD8C724FA2D651636F62 /* Project object */;
+}

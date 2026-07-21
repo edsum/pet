@@ -1,0 +1,127 @@
+name: DeskPet
+options:
+  bundleIdPrefix: com.deskpet
+  deploymentTarget:
+    iOS: "18.2"
+    watchOS: "10.0"
+  createIntermediateGroups: true
+  groupSortPosition: top
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    DEVELOPMENT_TEAM: ""
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    ENABLE_USER_SCRIPT_SANDBOXING: NO
+    SWIFT_STRICT_CONCURRENCY: minimal
+
+packages:
+  DeskPetKit:
+    path: Packages/DeskPetKit
+
+targets:
+
+  # ===================== 主 App =====================
+  DeskPet:
+    type: application
+    platform: iOS
+    deploymentTarget: "18.2"
+    sources:
+      - path: DeskPet
+        excludes:
+          - "Resources/Info.plist"
+          - "Resources/DeskPet.entitlements"
+      - path: DeskPet/Resources/Assets.xcassets
+      - path: DeskPet/Resources/Info.plist
+      - path: DeskPet/Resources/DeskPet.entitlements
+      - path: Shared/PrivacyInfo.xcprivacy
+    dependencies:
+      - package: DeskPetKit
+      - target: DeskPetWidgetExtension
+      # Watch App 通过 "Embed Watch Content" 在 Xcode UI 里手动添加
+      # 或在确认 watchOS 11.2 已安装时取消注释
+      # - target: DeskPetWatch
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.deskpet.app
+        PRODUCT_NAME: DeskPet
+        INFOPLIST_FILE: DeskPet/Resources/Info.plist
+        CODE_SIGN_ENTITLEMENTS: DeskPet/Resources/DeskPet.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_PREVIEWS: YES
+        TARGETED_DEVICE_FAMILY: "1,2"
+        SUPPORTS_MACCATALYST: YES
+        SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: YES
+
+  # ===================== Widget Extension =====================
+  DeskPetWidgetExtension:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "18.2"
+    sources:
+      - path: DeskPetWidget
+        excludes:
+          - "Resources/Info.plist"
+          - "Resources/DeskPetWidget.entitlements"
+      - path: DeskPetWidget/Resources/Assets.xcassets
+      - path: DeskPetWidget/Resources/Info.plist
+      - path: DeskPetWidget/Resources/DeskPetWidget.entitlements
+    dependencies:
+      - package: DeskPetKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.deskpet.app.DeskPetWidget
+        PRODUCT_NAME: DeskPetWidget
+        INFOPLIST_FILE: DeskPetWidget/Resources/Info.plist
+        CODE_SIGN_ENTITLEMENTS: DeskPetWidget/Resources/DeskPetWidget.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        SKIP_INSTALL: YES
+
+  # ===================== watchOS App =====================
+  DeskPetWatch:
+    type: application
+    platform: watchOS
+    deploymentTarget: "10.0"
+    sources:
+      - path: DeskPetWatch
+        excludes:
+          - "Resources/Info.plist"
+          - "Resources/DeskPetWatch.entitlements"
+      - path: DeskPetWatch/Resources/Assets.xcassets
+      - path: DeskPetWatch/Resources/Info.plist
+      - path: DeskPetWatch/Resources/DeskPetWatch.entitlements
+    dependencies:
+      - package: DeskPetKit
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.deskpet.app.watchkitapp
+        PRODUCT_NAME: DeskPetWatch
+        INFOPLIST_FILE: DeskPetWatch/Resources/Info.plist
+        CODE_SIGN_ENTITLEMENTS: DeskPetWatch/Resources/DeskPetWatch.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        SDKROOT: watchos
+        TARGETED_DEVICE_FAMILY: "4"
+        WATCHOS_DEPLOYMENT_TARGET: "10.0"
+        SKIP_INSTALL: YES
+
+schemes:
+  DeskPet:
+    build:
+      targets:
+        DeskPet: all
+        DeskPetWidgetExtension: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+    archive:
+      config: Release
+  DeskPetWatch:
+    build:
+      targets:
+        DeskPetWatch: all
+    run:
+      config: Debug
