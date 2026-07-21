@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!-- 单色 Tintable 版本：用于 iOS 18+ 的 Tinted/暗黑模式
+       只用一种颜色（黑），系统会自动按主题着色 -->
+  <g fill="#000000">
+    <!-- 身体 -->
+    <ellipse cx="512" cy="560" rx="280" ry="250"/>
+    <!-- 耳朵 -->
+    <path d="M 320,380 Q 290,300 360,290 Q 400,340 380,420 Z"/>
+    <path d="M 704,380 Q 734,300 664,290 Q 624,340 644,420 Z"/>
+    <!-- 爪印 -->
+    <ellipse cx="800" cy="800" rx="22" ry="28"/>
+    <ellipse cx="770" cy="770" rx="10" ry="13"/>
+    <ellipse cx="830" cy="770" rx="10" ry="13"/>
+    <ellipse cx="755" cy="800" rx="10" ry="13"/>
+    <ellipse cx="845" cy="800" rx="10" ry="13"/>
+  </g>
+</svg>
