@@ -35,7 +35,7 @@ final class PetNode: SKNode {
     // MARK: 内部节点
 
     private let bodyContainer = SKNode()        // 整体呼吸/旋转的容器
-    private let imageNode: SKSpriteNode?        // 用户生成的形象（可选）
+    private var imageNode: SKSpriteNode?        // 用户生成的形象（可选）
     private let shapeNode: SKShapeNode          // 程序化绘制的身体（兜底）
     private let leftEye: SKShapeNode
     private let rightEye: SKShapeNode
@@ -58,6 +58,7 @@ final class PetNode: SKNode {
     init(state: PetState) {
         self.petID = state.petID
         self.mood = state.mood
+        self.currentForm = state.form
 
         // ★ 先用 baseSize 作为初始尺寸（super.init 之前不能用计算属性 size）
         let initialSize = baseSize
@@ -205,8 +206,8 @@ final class PetNode: SKNode {
         shapeNode.fillColor = bodyColor(for: mood)
 
         // 切换形象帧（如果存在）
-        if let imgNode = imageNode,
-           let uiImage = AssetStore.loadFrame(mood: mood, petID: petID) {
+        if let uiImage = AssetStore.loadFrame(mood: mood, petID: petID) {
+            let imgNode = ensureImageNode(with: uiImage)
             imgNode.texture = SKTexture(image: uiImage)
             imgNode.isHidden = false
             shapeNode.isHidden = true
@@ -217,6 +218,16 @@ final class PetNode: SKNode {
             imageNode?.isHidden = true
             shapeNode.isHidden = false
         }
+    }
+
+    private func ensureImageNode(with image: PlatformImage) -> SKSpriteNode {
+        if let imageNode { return imageNode }
+        let node = SKSpriteNode(texture: SKTexture(image: image),
+                                size: CGSize(width: size, height: size))
+        node.zPosition = 1
+        bodyContainer.addChild(node)
+        imageNode = node
+        return node
     }
 
     private func mouthPath(for mood: PetMood) -> CGPath {

@@ -16,6 +16,7 @@ struct GenerateAvatarView: View {
     @State private var cutoutImage: UIImage?
     @State private var showError = false
     @State private var errorMsg: String?
+    @State private var didSaveGeneratedAvatar = false
 
     var body: some View {
         NavigationStack {
@@ -69,6 +70,12 @@ struct GenerateAvatarView: View {
                     if let err = errorMsg, showError {
                         Text(err).foregroundStyle(.red).font(.footnote)
                     }
+
+                    if didSaveGeneratedAvatar {
+                        Text("形象已保存")
+                            .font(.footnote)
+                            .foregroundStyle(.green)
+                    }
                 }
                 .padding()
             }
@@ -80,6 +87,7 @@ struct GenerateAvatarView: View {
                       let img = UIImage(data: data) else { return }
                 sourceImage = img
                 cutoutImage = nil
+                didSaveGeneratedAvatar = false
             }
         }
     }
@@ -150,9 +158,11 @@ struct GenerateAvatarView: View {
         }
 
         let concepts: [ImagePlaygroundConcept] = [
-            .text("cute pet, \(vm.state.appearance.style.rawValue) style, kawaii"),
+            .text("full body cute desktop pet based on the source animal, \(vm.state.appearance.style.rawValue) style, centered, sticker-like, expressive eyes")
         ]
         let vc = ImagePlaygroundViewController()
+        vc.sourceImage = img
+        vc.concepts = concepts
         let delegate = ImagePlaygroundDelegate(
             onCreated: { [self] url in self.imagePlaygroundCreated(imageURL: url) },
             onCancel: {}
@@ -206,7 +216,11 @@ extension GenerateAvatarView {
                let img = UIImage(data: data) {
                 try? AssetStore.save(frame: img, mood: .happy, petID: vm.state.petID)
                 try? AssetStore.save(frame: img, mood: .idle, petID: vm.state.petID)
+                vm.state.mood = .happy
                 vm.scene.sync(state: vm.state)
+                vm.persist()
+                didSaveGeneratedAvatar = true
+                showError = false
             }
         }
     }

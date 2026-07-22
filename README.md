@@ -64,14 +64,14 @@ pet/
 
 ### App Group 配置（关键）
 
-工程默认用 `group.com.deskpet.shared` 作为 App Group。你需要：
+工程默认用 `group.com.eavic.test` 作为 App Group。你需要：
 
 1. 在 [Apple Developer Portal](https://developer.apple.com) 创建这个 App Group
 2. Xcode → App target → Signing & Capabilities → 确认 App Groups capability 已勾选
 3. 把 `DeskPetKit/Sources/DeskPetKit/Storage/SharedStore.swift` 里的 `groupID` 改成你的：
 
 ```swift
-public static let groupID = "group.com.deskpet.shared"   // ← 改成你的
+public static let groupID = "group.com.eavic.test"   // ← 改成你的
 ```
 
 entitlements 文件已经预置好（`DeskPet/Resources/DeskPet.entitlements`），打开 Xcode 后会自动关联。
@@ -80,9 +80,9 @@ entitlements 文件已经预置好（`DeskPet/Resources/DeskPet.entitlements`）
 
 | Target | Bundle ID |
 |---|---|
-| App | `com.deskpet.app` |
-| Widget | `com.deskpet.app.DeskPetWidget` |
-| Watch | `com.deskpet.app.watchkitapp` |
+| App | `com.eavic.test` |
+| Widget | `com.eavic.test.widget` |
+| Watch | `com.eavic.test.watch` |
 
 如果要用你自己的 Bundle ID，改 `project.yml` 里的 `PRODUCT_BUNDLE_IDENTIFIER` 然后重新生成。
 

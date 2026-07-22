@@ -36,21 +36,32 @@ public struct PetAvatarView: View {
     }
 
     public var body: some View {
-        Group {
-            if let img = AssetStore.loadFrame(mood: state.mood, petID: state.petID) {
-                #if canImport(UIKit)
-                Image(uiImage: img).resizable().scaledToFit()
-                #else
-                Image(nsImage: img).resizable().scaledToFit()
-                #endif
-            } else {
-                // 兜底：SF Symbol 占位（首次生成形象前显示）
-                ZStack {
-                    Circle().fill(Color.orange.opacity(0.85))
-                    Image(systemName: "pawprint.fill")
-                        .font(.system(size: size * 0.45))
-                        .foregroundStyle(.white)
+        ZStack(alignment: .topTrailing) {
+            Group {
+                if let img = AssetStore.loadFrame(mood: state.mood, petID: state.petID) {
+                    #if canImport(UIKit)
+                    Image(uiImage: img).resizable().scaledToFit()
+                    #else
+                    Image(nsImage: img).resizable().scaledToFit()
+                    #endif
+                } else {
+                    // 兜底：SF Symbol 占位（首次生成形象前显示）
+                    ZStack {
+                        Circle().fill(Color.orange.opacity(0.85))
+                        Image(systemName: "pawprint.fill")
+                            .font(.system(size: size * 0.45))
+                            .foregroundStyle(.white)
+                    }
                 }
+            }
+
+            if let accessory = state.mood.accessoryIcon {
+                Image(systemName: accessory)
+                    .font(.system(size: max(12, size * 0.18), weight: .bold))
+                    .foregroundStyle(.white)
+                    .padding(max(4, size * 0.06))
+                    .background(Color.black.opacity(0.38), in: Circle())
+                    .offset(x: size * 0.04, y: -size * 0.04)
             }
         }
         .frame(width: size, height: size)
@@ -62,6 +73,31 @@ public struct PetAvatarView: View {
                             .repeatForever(autoreverses: true)) {
                 breathe = true
             }
+        }
+    }
+}
+
+private extension PetMood {
+    var accessoryIcon: String? {
+        switch self {
+        case .eating, .hungry:
+            return "fork.knife"
+        case .sleeping, .sleepy:
+            return "moon.zzz.fill"
+        case .dancing:
+            return "music.note"
+        case .tired:
+            return "battery.25"
+        case .sick:
+            return "cross.case.fill"
+        case .dirty:
+            return "drop.fill"
+        case .excited, .playing:
+            return "sparkles"
+        case .quiet:
+            return "speaker.slash.fill"
+        default:
+            return nil
         }
     }
 }

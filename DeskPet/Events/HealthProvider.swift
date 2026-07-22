@@ -71,9 +71,10 @@ final class HealthProvider: NSObject, SystemEventProvider {
         // 达到 5000 步且今天还没奖励过 → 触发奖励事件
         let cal = Calendar.current
         let today = cal.startOfDay(for: Date())
-        if steps >= 5000,
-           let last = lastRewardDate,
-           cal.isDate(last, inSameDayAs: today) == false || lastRewardDate == nil {
+        let alreadyRewardedToday = lastRewardDate
+            .map { cal.isDate($0, inSameDayAs: today) } ?? false
+
+        if steps >= 5000, !alreadyRewardedToday {
             lastRewardDate = today
             // 上抛一次"步数达标" → 由 EventEngine 转 PetEvent.stepGoalReached
             onEvent?(.stepCount(-1))   // 用 -1 作为"达标信号"约定

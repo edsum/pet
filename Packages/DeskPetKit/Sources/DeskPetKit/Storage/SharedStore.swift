@@ -3,8 +3,8 @@ import Foundation
 // MARK: - App Groups 共享容器统一入口
 
 public enum SharedStore {
-    /// ⚠️ 这里改成你的实际 group id（与 entitlements 一致）
-    public static let groupID = "group.com.yourname.deskpet"
+    /// Must match the App Groups entitlement for the app, widget, and watch targets.
+    public static let groupID = "group.com.eavic.test"
 
     public static var containerURL: URL {
         FileManager.default

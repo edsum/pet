@@ -25,9 +25,17 @@ public enum AssetStore {
     }
 
     public static func loadFrame(mood: PetMood, petID: UUID) -> PlatformImage? {
-        let url = avatarDir(for: petID).appendingPathComponent("\(mood.assetName).png")
-        guard FileManager.default.fileExists(atPath: url.path) else { return nil }
-        return PlatformImage(contentsOfFile: url.path)
+        let dir = avatarDir(for: petID)
+        var candidates: [PetMood] = [mood]
+        if mood != .idle { candidates.append(.idle) }
+        if mood != .happy { candidates.append(.happy) }
+        for candidate in candidates {
+            let url = dir.appendingPathComponent("\(candidate.assetName).png")
+            if FileManager.default.fileExists(atPath: url.path) {
+                return PlatformImage(contentsOfFile: url.path)
+            }
+        }
+        return nil
     }
 
     /// 删除某只宠物的所有形象

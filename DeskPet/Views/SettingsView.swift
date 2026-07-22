@@ -4,6 +4,7 @@ import DeskPetKit
 struct SettingsView: View {
 
     @EnvironmentObject var vm: PetViewModel
+    @State private var showGenerateAvatar = false
 
     var body: some View {
         NavigationStack {
@@ -26,6 +27,11 @@ struct SettingsView: View {
                             Text(s.rawValue).tag(s)
                         }
                     }
+                    Button {
+                        showGenerateAvatar = true
+                    } label: {
+                        Label("重新生成形象", systemImage: "wand.and.stars")
+                    }
                 }
 
                 Section("数据") {
@@ -42,6 +48,10 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle("设置")
+        }
+        .sheet(isPresented: $showGenerateAvatar) {
+            GenerateAvatarView()
+                .environmentObject(vm)
         }
     }
 }

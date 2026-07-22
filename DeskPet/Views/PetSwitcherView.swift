@@ -120,7 +120,7 @@ extension PetPersonality {
         switch self {
         case .lively: return "活泼 🌟"
         case .calm:   return "高冷 🐱"
-        case .clingy: return "黔人 🐶"
+        case .clingy: return "黏人 🐶"
         case .goofy:  return "憨厚 🐻"
         }
     }

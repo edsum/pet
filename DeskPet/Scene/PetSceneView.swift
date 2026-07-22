@@ -14,12 +14,13 @@ struct PetSceneView: View {
                     DragGesture(minimumDistance: 0)
                         .onChanged { value in
                             let p = toScene(value.location, in: proxy.size)
-                            if scene.pet.isDragging == false,
+                            guard let pet = scene.pet else { return }
+                            if pet.isDragging == false,
                                value.translation.width != 0 || value.translation.height != 0 {
                                 // 进入拖拽
                                 scene.beginDrag(at: p)
                             }
-                            if scene.pet.isDragging {
+                            if pet.isDragging {
                                 scene.updateDrag(at: p)
                             }
                         }
@@ -27,7 +28,7 @@ struct PetSceneView: View {
                             let p = toScene(value.location, in: proxy.size)
                             let velocity = CGVector(dx: value.predictedEndLocation.x - value.location.x,
                                                     dy: value.predictedEndLocation.y - value.location.y)
-                            if scene.pet.isDragging {
+                            if scene.pet?.isDragging == true {
                                 scene.endDrag(at: p, velocity: scaledVelocity(velocity))
                             } else {
                                 // 没拖起来 → 视为单击
@@ -39,13 +40,15 @@ struct PetSceneView: View {
                     TapGesture(count: 2)
                         .onEnded {
                             // 双击位置取中心（SwiftUI 在 simultaneous 下拿不到精确点）
-                            scene.handleDoubleTap(at: scene.pet.position)
+                            guard let pet = scene.pet else { return }
+                            scene.handleDoubleTap(at: pet.position)
                         }
                 )
                 .simultaneousGesture(
                     LongPressGesture(minimumDuration: 0.6)
                         .onEnded { _ in
-                            scene.handleLongPress(at: scene.pet.position)
+                            guard let pet = scene.pet else { return }
+                            scene.handleLongPress(at: pet.position)
                         }
                 )
                 .onAppear {

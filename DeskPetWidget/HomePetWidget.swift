@@ -1,5 +1,6 @@
 import WidgetKit
 import SwiftUI
+import AppIntents
 import DeskPetKit
 
 // MARK: - Timeline Entry / Provider
@@ -87,6 +88,7 @@ struct HomePetView: View {
                         .font(.caption2)
                         .foregroundStyle(.white)
                         .lineLimit(1)
+                    compactInteractionButtons
                 }
 
             case .systemMedium:
@@ -102,6 +104,7 @@ struct HomePetView: View {
                         StatBarsView(stats: s.stats)
                             .padding(8)
                             .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 10))
+                        interactionButtons
                     }
                 }
                 .padding()
@@ -120,10 +123,64 @@ struct HomePetView: View {
                     }
                     .font(.caption.bold())
                     .foregroundStyle(.white)
+                    interactionButtons
                 }
                 .padding()
             }
         }
+    }
+
+    private var compactInteractionButtons: some View {
+        HStack(spacing: 8) {
+            Button(intent: PetPetIntent()) {
+                Image(systemName: "hand.draw")
+            }
+            Button(intent: FeedPetIntent()) {
+                Image(systemName: "fork.knife")
+            }
+        }
+        .font(.caption.bold())
+        .buttonStyle(.bordered)
+        .tint(.white.opacity(0.28))
+    }
+
+    private var interactionButtons: some View {
+        HStack(spacing: 8) {
+            Button(intent: PetPetIntent()) {
+                Label("摸摸", systemImage: "hand.draw")
+            }
+            Button(intent: FeedPetIntent()) {
+                Label("喂食", systemImage: "fork.knife")
+            }
+        }
+        .font(.caption.bold())
+        .buttonStyle(.bordered)
+        .tint(.white.opacity(0.28))
+        .foregroundStyle(.white)
+    }
+}
+
+// MARK: - Interactive Widget Intents
+
+struct FeedPetIntent: AppIntent {
+    static var title: LocalizedStringResource = "喂食"
+    static var description = IntentDescription("给桌宠一份小鱼干。")
+
+    func perform() async throws -> some IntentResult {
+        PetInteractionActions.feed(.fish)
+        await WidgetCenter.shared.reloadAllTimelines()
+        return .result()
+    }
+}
+
+struct PetPetIntent: AppIntent {
+    static var title: LocalizedStringResource = "摸摸"
+    static var description = IntentDescription("摸摸桌宠的头。")
+
+    func perform() async throws -> some IntentResult {
+        PetInteractionActions.pet()
+        await WidgetCenter.shared.reloadAllTimelines()
+        return .result()
     }
 }
 

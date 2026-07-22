@@ -30,6 +30,11 @@ fastlane/test_output
 *.local.xcconfig
 *.local.env
 
+# Signing material（证书和描述文件不进 git）
+Sign/
+*.p12
+*.mobileprovision
+
 # 图标生成产物（Xcode 用 DeskPet/Resources/Assets.xcassets/AppIcon.appiconset）
 Resources/AppIcon/AppIcon.appiconset/
 

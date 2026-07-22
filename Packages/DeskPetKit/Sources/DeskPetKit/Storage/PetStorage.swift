@@ -42,6 +42,31 @@ public enum PetStorage {
         try? id.uuidString.write(to: currentIDURL, atomically: true, encoding: .utf8)
     }
 
+    /// Mutates the currently selected pet and persists both the multi-pet store
+    /// and the legacy single-pet snapshot used by older widget code paths.
+    @discardableResult
+    public static func updateCurrent(_ transform: (inout PetState) -> Void) -> PetState {
+        var pets = loadAll()
+
+        if pets.isEmpty {
+            var state = loadLegacySinglePet() ?? SharedStore.loadState()
+            transform(&state)
+            saveAll([state])
+            saveCurrentID(state.petID)
+            SharedStore.saveState(state)
+            return state
+        }
+
+        let selectedID = loadCurrentID()
+        let index = selectedID.flatMap { id in pets.firstIndex { $0.petID == id } } ?? 0
+
+        transform(&pets[index])
+        saveAll(pets)
+        saveCurrentID(pets[index].petID)
+        SharedStore.saveState(pets[index])
+        return pets[index]
+    }
+
     // MARK: 兼容老数据
 
     /// 读老的单宠物格式（用于 M8 升级迁移）

@@ -107,15 +107,17 @@ final class SystemEventOrchestrator {
 
     @MainActor
     private func applyWeather(_ condition: WeatherCondition) {
+        let petPosition = vm?.scene.pet?.position ?? .zero
+
         switch condition {
         case .rain:
             vm?.setMood(.curious)
             vm?.scene.spawnSymbols(text: "☔️",
-                                   at: vm?.scene.pet.position ?? .zero,
+                                   at: petPosition,
                                    count: 3, spread: 30)
         case .snow:
             vm?.scene.spawnSymbols(text: "❄️",
-                                   at: vm?.scene.pet.position ?? .zero,
+                                   at: petPosition,
                                    count: 5, spread: 50)
             vm?.setMood(.excited)
         case .hot:

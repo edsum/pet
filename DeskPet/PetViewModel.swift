@@ -143,7 +143,7 @@ final class PetViewModel: ObservableObject {
 
     /// ★ 由 Orchestrator 调用：根据当前数值重新计算 mood
     func recomputeMood() {
-        state.computeMood()
+        state.mood = state.computeMood()
         scene.sync(state: state)
         persist()
     }

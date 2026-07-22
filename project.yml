@@ -1,6 +1,6 @@
 name: DeskPet
 options:
-  bundleIdPrefix: com.deskpet
+  bundleIdPrefix: com.eavic
   deploymentTarget:
     iOS: "18.2"
     watchOS: "10.0"
@@ -45,7 +45,7 @@ targets:
       # - target: DeskPetWatch
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.deskpet.app
+        PRODUCT_BUNDLE_IDENTIFIER: com.eavic.test
         PRODUCT_NAME: DeskPet
         INFOPLIST_FILE: DeskPet/Resources/Info.plist
         CODE_SIGN_ENTITLEMENTS: DeskPet/Resources/DeskPet.entitlements
@@ -73,7 +73,7 @@ targets:
       - package: DeskPetKit
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.deskpet.app.DeskPetWidget
+        PRODUCT_BUNDLE_IDENTIFIER: com.eavic.test.widget
         PRODUCT_NAME: DeskPetWidget
         INFOPLIST_FILE: DeskPetWidget/Resources/Info.plist
         CODE_SIGN_ENTITLEMENTS: DeskPetWidget/Resources/DeskPetWidget.entitlements
@@ -97,7 +97,7 @@ targets:
       - package: DeskPetKit
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.deskpet.app.watchkitapp
+        PRODUCT_BUNDLE_IDENTIFIER: com.eavic.test.watch
         PRODUCT_NAME: DeskPetWatch
         INFOPLIST_FILE: DeskPetWatch/Resources/Info.plist
         CODE_SIGN_ENTITLEMENTS: DeskPetWatch/Resources/DeskPetWatch.entitlements

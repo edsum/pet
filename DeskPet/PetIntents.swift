@@ -11,10 +11,7 @@ struct FeedPetIntent: AppIntent {
     static var description = IntentDescription("给桌宠一份小鱼干。")
 
     func perform() async throws -> some IntentResult {
-        var state = SharedStore.loadState()
-        state.reconcile()
-        state.apply(.userFed(.fish))
-        SharedStore.saveState(state)
+        PetInteractionActions.feed(.fish)
         // 立刻刷新所有 Widget
         #if canImport(WidgetKit)
         await WidgetCenter.shared.reloadAllTimelines()
@@ -29,10 +26,7 @@ struct PetPetIntent: AppIntent {
     static var description = IntentDescription("摸摸桌宠的头。")
 
     func perform() async throws -> some IntentResult {
-        var state = SharedStore.loadState()
-        state.reconcile()
-        state.apply(.userPetted)
-        SharedStore.saveState(state)
+        PetInteractionActions.pet()
         #if canImport(WidgetKit)
         await WidgetCenter.shared.reloadAllTimelines()
         #endif

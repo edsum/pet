@@ -22,7 +22,7 @@ final class PetScene: SKScene {
 
     // MARK: 节点
 
-    private(set) var pet: PetNode!
+    private(set) var pet: PetNode?
     private var groundLine: CGFloat = 0
 
     // MARK: 闭包（由 View 层注入）
@@ -37,6 +37,11 @@ final class PetScene: SKScene {
     // MARK: 初始化
 
     func bootstrap(initial state: PetState) {
+        if pet != nil {
+            sync(state: state)
+            return
+        }
+
         physicsWorld.gravity = CGVector(dx: 0, dy: -560)      // 接近真实重力
         physicsWorld.contactDelegate = self
         scaleMode = .aspectFill
@@ -47,6 +52,7 @@ final class PetScene: SKScene {
         pet.name = "pet"
         addChild(pet)
         self.pet = pet
+        sync(state: state)
 
         addGroundAndWalls()
     }
@@ -91,12 +97,15 @@ final class PetScene: SKScene {
     // MARK: 状态同步（每次 PetState 变化时由 ViewModel 调用）
 
     func sync(state: PetState) {
+        guard let pet else { return }
+        pet.currentForm = state.form
         pet.mood = state.mood
     }
 
     // MARK: 输入：把 SwiftUI 手势坐标传进来
 
     func handleTap(at scenePoint: CGPoint) {
+        guard let pet else { return }
         // 是否点中宠物
         let dx = scenePoint.x - pet.position.x
         let dy = scenePoint.y - pet.position.y
@@ -114,6 +123,7 @@ final class PetScene: SKScene {
     }
 
     func handleDoubleTap(at scenePoint: CGPoint) {
+        guard let pet else { return }
         pet.jump()
         spawnStars(at: scenePoint)
         onJump?()
@@ -130,6 +140,7 @@ final class PetScene: SKScene {
     private var dragOffset: CGPoint = .zero
 
     func beginDrag(at scenePoint: CGPoint) {
+        guard let pet else { return }
         let dx = scenePoint.x - pet.position.x
         let dy = scenePoint.y - pet.position.y
         let r = pet.size / 2
@@ -140,6 +151,7 @@ final class PetScene: SKScene {
     }
 
     func updateDrag(at scenePoint: CGPoint) {
+        guard let pet else { return }
         guard pet.isDragging else { return }
         pet.position = CGPoint(x: scenePoint.x - dragOffset.x,
                                y: scenePoint.y - dragOffset.y)
@@ -147,6 +159,7 @@ final class PetScene: SKScene {
     }
 
     func endDrag(at scenePoint: CGPoint, velocity: CGVector) {
+        guard let pet else { return }
         guard pet.isDragging else { return }
         pet.isDragging = false
         // 投掷
@@ -159,6 +172,7 @@ final class PetScene: SKScene {
     private var lastTime: TimeInterval = 0
 
     override func update(_ currentTime: TimeInterval) {
+        guard let pet else { return }
         let dt = lastTime == 0 ? 1.0/60 : currentTime - lastTime
         lastTime = currentTime
         pet.update(currentTime, dt: dt)
@@ -190,6 +204,7 @@ final class PetScene: SKScene {
 
     /// Zzz 粒子（睡觉时持续）
     func spawnZzz() {
+        guard let pet else { return }
         guard pet.mood == .sleeping else { return }
         spawnSymbols(text: "💤", at: CGPoint(x: pet.position.x + 30,
                                              y: pet.position.y + pet.size/2),
@@ -232,6 +247,7 @@ final class PetScene: SKScene {
 extension PetScene: SKPhysicsContactDelegate {
 
     func didBegin(_ contact: SKPhysicsContact) {
+        guard let pet else { return }
         // 宠物落地时给一点旋转，让它"落地"更有趣
         let petMask = Physics.pet.rawValue
         let wallMask = Physics.wall.rawValue
