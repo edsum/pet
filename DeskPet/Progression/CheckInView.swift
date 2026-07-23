@@ -135,12 +135,7 @@ struct CheckInView: View {
     // MARK: 签到动作
 
     private func checkInNow() {
-        let reward = vm.progression.checkIn()
-        // 同步奖励到宠物
-        vm.state.coins += reward.coins
-        vm.state.addExp(reward.exp)
-        vm.persist()
-        vm.refreshAchievements()
+        guard let reward = vm.claimDailySupply() else { return }
 
         todayReward = reward
         withAnimation { showRewardToast = true }

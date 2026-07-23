@@ -16,15 +16,28 @@ final class EventEngine {
     private weak var vm: PetViewModel?
     private var cancellables = Set<AnyCancellable>()
     private var batteryPollTimer: Timer?
+    private var lastKnownIsCharging: Bool?
+    private var didSendLowBatteryEvent = false
+
+    private enum BatterySyncReason {
+        case startup
+        case stateChanged
+        case levelChanged
+        case poll
+        case becameActive
+        case enteredBackground
+    }
 
     private init() {}
 
     func start() {
         self.vm = PetViewModelAccessor.shared.vm
+        UIDevice.current.isBatteryMonitoringEnabled = true
 
         // App 启动时清理上次没正常结束的 Live Activity
         Task { @MainActor in
             await ActivityController.shared.endAll()
+            await self.syncBatteryStatus(reason: .startup, forceStatusUpdate: true)
         }
 
         observeBattery()
@@ -42,41 +55,93 @@ final class EventEngine {
         center.publisher(for: UIDevice.batteryStateDidChangeNotification)
             .sink { [weak self] _ in
                 guard let self else { return }
-                let state = UIDevice.current.batteryState
                 Task { @MainActor in
-                    if state == .charging || state == .full {
-                        self.vm?.handle(event: .chargingStarted)
-                        self.spawnChargingEffects()
-                        // 启动充电 Live Activity
-                        let name = self.vm?.state.name ?? "小毛"
-                        try? await ActivityController.shared.startCharging(petName: name)
-                        self.startBatteryPolling()
-                    } else if state == .unplugged {
-                        self.vm?.handle(event: .chargingStopped)
-                        await ActivityController.shared.endCharging()
-                        self.stopBatteryPolling()
-                    }
+                    await self.syncBatteryStatus(reason: .stateChanged, forceStatusUpdate: true)
                 }
             }
             .store(in: &cancellables)
 
         center.publisher(for: UIDevice.batteryLevelDidChangeNotification)
             .sink { [weak self] _ in
-                let level = UIDevice.current.batteryLevel
-                if level >= 0 && level <= 0.2 {
-                    Task { @MainActor in self?.vm?.handle(event: .batteryLow) }
+                guard let self else { return }
+                Task { @MainActor in
+                    await self.syncBatteryStatus(reason: .levelChanged, forceStatusUpdate: true)
                 }
             }
             .store(in: &cancellables)
     }
 
+    @MainActor
+    private func syncBatteryStatus(
+        reason: BatterySyncReason,
+        forceStatusUpdate: Bool = false
+    ) async {
+        UIDevice.current.isBatteryMonitoringEnabled = true
+
+        let level = currentBatteryLevel()
+        let isCharging = currentIsCharging()
+        let persistedStatus = SharedStore.loadDeviceStatus()
+        let previousIsCharging = lastKnownIsCharging ?? persistedStatus.isCharging
+        let didChangeCharging = previousIsCharging != isCharging
+
+        lastKnownIsCharging = isCharging
+        SharedStore.saveDeviceStatus(batteryLevel: level, isCharging: isCharging)
+
+        let pet = vm?.state
+        let name = pet?.name ?? "小毛"
+        let petID = pet?.petID
+
+        if isCharging {
+            if didChangeCharging {
+                vm?.handle(event: .chargingStarted)
+                spawnChargingEffects()
+            }
+            if didChangeCharging
+                || reason == .startup
+                || reason == .becameActive
+                || reason == .enteredBackground {
+                try? await ActivityController.shared.startCharging(petName: name, petID: petID)
+            }
+            if let level {
+                await ActivityController.shared.updateCharging(batteryLevel: level)
+            } else if forceStatusUpdate {
+                await ActivityController.shared.updateStatus(
+                    petName: name,
+                    petID: petID,
+                    isCharging: true,
+                    subtitle: "正在充电，能量补给中"
+                )
+            }
+            startBatteryPolling()
+        } else {
+            if didChangeCharging && previousIsCharging {
+                vm?.handle(event: .chargingStopped)
+            }
+            await ActivityController.shared.endCharging(
+                petName: name,
+                petID: petID,
+                batteryLevel: level
+            )
+            stopBatteryPolling()
+        }
+
+        if let level {
+            if level <= 0.2 && !didSendLowBatteryEvent {
+                vm?.handle(event: .batteryLow)
+                didSendLowBatteryEvent = true
+            } else if level > 0.25 {
+                didSendLowBatteryEvent = false
+            }
+        }
+    }
+
     /// 每 30 秒把当前电量推给 Live Activity（保持进度条更新）
     private func startBatteryPolling() {
-        batteryPollTimer?.invalidate()
-        batteryPollTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { _ in
-            let level = UIDevice.current.batteryLevel
+        guard batteryPollTimer == nil else { return }
+        batteryPollTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] _ in
+            guard let self else { return }
             Task { @MainActor in
-                await ActivityController.shared.updateCharging(batteryLevel: Double(level))
+                await self.syncBatteryStatus(reason: .poll, forceStatusUpdate: true)
             }
         }
     }
@@ -84,6 +149,17 @@ final class EventEngine {
     private func stopBatteryPolling() {
         batteryPollTimer?.invalidate()
         batteryPollTimer = nil
+    }
+
+    private func currentBatteryLevel() -> Double? {
+        let level = UIDevice.current.batteryLevel
+        guard level >= 0 else { return nil }
+        return Double(level)
+    }
+
+    private func currentIsCharging() -> Bool {
+        let state = UIDevice.current.batteryState
+        return state == .charging || state == .full
     }
 
     // MARK: 低电量模式
@@ -129,6 +205,7 @@ final class EventEngine {
             .sink { [weak self] _ in
                 Task { @MainActor in
                     self?.vm?.reconcile()
+                    await self?.syncBatteryStatus(reason: .becameActive, forceStatusUpdate: true)
                     self?.vm?.handle(event: .enterForeground)
                 }
             }
@@ -136,7 +213,10 @@ final class EventEngine {
 
         NotificationCenter.default.publisher(for: UIApplication.didEnterBackgroundNotification)
             .sink { [weak self] _ in
-                Task { @MainActor in self?.vm?.handle(event: .enterBackground) }
+                Task { @MainActor in
+                    await self?.syncBatteryStatus(reason: .enteredBackground, forceStatusUpdate: true)
+                    self?.vm?.handle(event: .enterBackground)
+                }
             }
             .store(in: &cancellables)
     }

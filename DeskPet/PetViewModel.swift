@@ -51,6 +51,8 @@ final class PetViewModel: ObservableObject {
         guard let pet = manager.current else { return }
         state = pet
         scene.sync(state: pet)
+        SharedStore.saveState(pet)
+        syncLiveActivityPetSnapshot()
     }
 
     func reconcile() {
@@ -68,26 +70,34 @@ final class PetViewModel: ObservableObject {
         WatchSync.shared.push(state: state)
         // ★ 走节流器：普通事件 4/h、25/天；重要事件直接放行
         WidgetReloadThrottle.shared.reloadAll(isCritical: false)
+        syncLiveActivityPetSnapshot()
     }
 
     // MARK: 用户互动（带事件日志）
 
-    func feed(_ food: Food) {
-        guard state.coins >= food.price else { return }
+    func feed(_ food: Food, animate: Bool = true) {
+        guard state.coins >= food.price else {
+            if animate { scene.performDenied() }
+            return
+        }
         let prevLevel = state.level
         state.apply(.userFed(food))
         logEvent(.fed, detail: "喂了 \(food.rawValue)")
         if state.level > prevLevel {
             logEvent(.leveledUp, detail: "升到 Lv.\(state.level)")
         }
+        scene.sync(state: state)
+        if animate { scene.performFeeding(food: food) }
         // 商店购物类 coins 减少 → progression 需要感知
         persist()
         Logger.app.info("feed(\(food.rawValue)): coins=\(state.coins)")
     }
 
-    func pet() {
+    func pet(animate: Bool = true) {
         state.apply(.userPetted)
         logEvent(.petted, detail: "摸了摸头")
+        scene.sync(state: state)
+        if animate { scene.performAffection() }
         persist()
     }
 
@@ -98,13 +108,94 @@ final class PetViewModel: ObservableObject {
         if state.level > prevLevel {
             logEvent(.leveledUp, detail: "升到 Lv.\(state.level)")
         }
+        scene.sync(state: state)
+        scene.performReward(text: "+\(min(30, score / 3))")
         persist()
         Logger.game.info("play(\(game.rawValue)) score=\(score) exp=\(state.exp)")
+    }
+
+    @discardableResult
+    func startExpedition() -> (coins: Int, exp: Int)? {
+        guard state.stats.energy >= 12, state.stats.hunger >= 10 else {
+            state.mood = state.stats.energy < 12 ? .tired : .hungry
+            scene.sync(state: state)
+            scene.performDenied()
+            persist()
+            return nil
+        }
+
+        let prevLevel = state.level
+        let rewardCoins = Int.random(in: 12...28)
+        let rewardExp = Int.random(in: 18...32)
+
+        state.stats.energy = clamp(state.stats.energy - 12)
+        state.stats.hunger = clamp(state.stats.hunger - 8)
+        state.stats.happiness = clamp(state.stats.happiness + 6)
+        state.coins += rewardCoins
+        state.mood = .playing
+        state.addExp(rewardExp)
+        logEvent(.played, detail: "家园探险带回 \(rewardCoins) 能量石")
+        if state.level > prevLevel {
+            logEvent(.leveledUp, detail: "探险后升到 Lv.\(state.level)")
+        }
+
+        scene.sync(state: state)
+        scene.performExpedition()
+        persist()
+
+        Task { @MainActor in
+            try? await ActivityController.shared.startExpedition(
+                petName: state.name,
+                rewardCoins: rewardCoins
+            )
+        }
+
+        return (rewardCoins, rewardExp)
+    }
+
+    @discardableResult
+    func claimDailySupply() -> CheckInRecord.Reward? {
+        guard progression.canCheckInToday else { return nil }
+
+        let reward = progression.checkIn()
+        let prevLevel = state.level
+        state.coins += reward.coins
+        state.addExp(reward.exp)
+        logEvent(.revived, detail: "领取每日补给 +\(reward.coins)")
+        if state.level > prevLevel {
+            logEvent(.leveledUp, detail: "补给后升到 Lv.\(state.level)")
+        }
+        scene.sync(state: state)
+        scene.performReward(text: "+\(reward.coins)")
+        persist()
+        refreshAchievements()
+        return reward
+    }
+
+    @discardableResult
+    func luckyDraw() -> (coins: Int, exp: Int) {
+        let rewardCoins = [8, 10, 12, 16, 20, 30].randomElement() ?? 10
+        let rewardExp = [6, 8, 10, 12, 15].randomElement() ?? 8
+        let prevLevel = state.level
+
+        state.coins += rewardCoins
+        state.addExp(rewardExp)
+        state.mood = .excited
+        logEvent(.played, detail: "免费抽获得 \(rewardCoins) 能量石")
+        if state.level > prevLevel {
+            logEvent(.leveledUp, detail: "抽奖后升到 Lv.\(state.level)")
+        }
+        scene.sync(state: state)
+        scene.performReward(text: "+\(rewardCoins)")
+        persist()
+        return (rewardCoins, rewardExp)
     }
 
     func bathe() {
         state.apply(.userBathed)
         logEvent(.bathed, detail: "洗了个澡")
+        scene.sync(state: state)
+        scene.performBathing()
         persist()
     }
 
@@ -125,12 +216,27 @@ final class PetViewModel: ObservableObject {
         }
         SharedStore.saveState(state)
         manager.update(state)
+        scene.sync(state: state)
+        if case .chargingStarted = event {
+            scene.performCharging()
+        } else if case .batteryLow = event {
+            scene.performDenied()
+        } else if case .stepGoalReached = event {
+            scene.performReward(text: "+15")
+        }
         WidgetReloadThrottle.shared.reloadAll(isCritical: critical)
+        syncLiveActivityPetSnapshot()
         Logger.event.info("handle event: \(event)")
     }
 
     func applyEnvironment(_ env: DeskPetKit.Environment) {
         EventRuleEngine.shared.apply(environment: env, to: &state)
+        scene.sync(state: state)
+        if env.isCharging {
+            scene.performCharging()
+        } else if env.hasHeadphones {
+            scene.performReward(text: "♪")
+        }
         persist()
     }
 
@@ -192,7 +298,7 @@ final class PetViewModel: ObservableObject {
 
     private func bindSceneCallbacks() {
         scene.onPet = { [weak self] in
-            self?.pet()
+            self?.pet(animate: false)
         }
         scene.onJump = nil
         scene.onFeed = { [weak self] in
@@ -223,7 +329,18 @@ final class PetViewModel: ObservableObject {
                 self.scene.sync(state: remoteState)
                 SharedStore.saveState(remoteState)
                 self.manager.update(remoteState)
+                self.syncLiveActivityPetSnapshot()
             }
+        }
+    }
+
+    private func syncLiveActivityPetSnapshot() {
+        let pet = state
+        Task { @MainActor in
+            await ActivityController.shared.updateStatus(
+                petName: pet.name,
+                petID: pet.petID
+            )
         }
     }
 }

@@ -9,7 +9,7 @@ struct PetSceneView: View {
     var body: some View {
         GeometryReader { proxy in
             SpriteView(scene: scene,
-                       options: [.ignoresSiblingOrder])   // SwiftUI 接管手势，不用 .disableInteraction
+                       options: [.allowsTransparency, .ignoresSiblingOrder])   // SwiftUI 接管手势，不用 .disableInteraction
                 .gesture(
                     DragGesture(minimumDistance: 0)
                         .onChanged { value in
@@ -52,7 +52,10 @@ struct PetSceneView: View {
                         }
                 )
                 .onAppear {
-                    scene.size = proxy.size
+                    scene.resize(to: proxy.size)
+                }
+                .onChange(of: proxy.size) { _, newSize in
+                    scene.resize(to: newSize)
                 }
         }
     }

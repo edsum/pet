@@ -14,7 +14,9 @@ struct DeskPetApp: App {
         WindowGroup {
             RootView()
                 .environmentObject(petVM)
+                #if targetEnvironment(macCatalyst)
                 .frame(minWidth: 720, minHeight: 900)
+                #endif
                 .onAppear {
                     petVM.bootstrap()
                     EventEngine.shared.start()

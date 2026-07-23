@@ -38,20 +38,14 @@ public struct PetAvatarView: View {
     public var body: some View {
         ZStack(alignment: .topTrailing) {
             Group {
-                if let img = AssetStore.loadFrame(mood: state.mood, petID: state.petID) {
+                if let img = avatarFrame {
                     #if canImport(UIKit)
                     Image(uiImage: img).resizable().scaledToFit()
                     #else
                     Image(nsImage: img).resizable().scaledToFit()
                     #endif
                 } else {
-                    // 兜底：SF Symbol 占位（首次生成形象前显示）
-                    ZStack {
-                        Circle().fill(Color.orange.opacity(0.85))
-                        Image(systemName: "pawprint.fill")
-                            .font(.system(size: size * 0.45))
-                            .foregroundStyle(.white)
-                    }
+                    ProceduralPetAvatarView(state: state, size: size)
                 }
             }
 
@@ -74,6 +68,166 @@ public struct PetAvatarView: View {
                 breathe = true
             }
         }
+    }
+
+    private var avatarFrame: PlatformImage? {
+        AssetStore.loadFrame(mood: state.mood, petID: state.petID)
+        ?? AssetStore.loadFrame(mood: .idle, petID: state.petID)
+        ?? AssetStore.loadFrame(mood: .happy, petID: state.petID)
+    }
+}
+
+private struct ProceduralPetAvatarView: View {
+    let state: PetState
+    let size: CGFloat
+
+    var body: some View {
+        let scale = state.form.sizeScale
+        ZStack {
+            if state.form.hasGlow {
+                Circle()
+                    .stroke(Color.yellow.opacity(0.55), lineWidth: max(3, size * 0.04))
+                    .blur(radius: max(2, size * 0.03))
+                    .frame(width: size * 0.96, height: size * 0.96)
+            }
+
+            ear(width: size * 0.25 * scale, height: size * 0.38 * scale)
+                .rotationEffect(.degrees(24))
+                .offset(x: -size * 0.24, y: -size * 0.22)
+            ear(width: size * 0.22 * scale, height: size * 0.40 * scale)
+                .rotationEffect(.degrees(-22))
+                .offset(x: size * 0.23, y: -size * 0.23)
+
+            foot
+                .offset(x: -size * 0.18, y: size * 0.34)
+            foot
+                .offset(x: size * 0.18, y: size * 0.34)
+
+            bodyShape(scale: scale)
+
+            belly
+                .offset(y: size * 0.15)
+
+            arm
+                .rotationEffect(.degrees(-22))
+                .offset(x: -size * 0.34, y: size * 0.09)
+            arm
+                .rotationEffect(.degrees(22))
+                .offset(x: size * 0.34, y: size * 0.09)
+
+            face
+                .offset(y: -size * 0.06)
+
+            sprout
+                .offset(x: size * 0.18, y: -size * 0.42)
+        }
+        .frame(width: size, height: size)
+    }
+
+    private var bodyColor: Color {
+        Color(hex: state.appearance.color)
+        ?? Color(hex: state.form.bodyColor)
+        ?? Color(red: 0.99, green: 0.92, blue: 0.34)
+    }
+
+    private var strokeColor: Color {
+        Color(red: 0.40, green: 0.32, blue: 0.16).opacity(0.42)
+    }
+
+    private func bodyShape(scale: CGFloat) -> some View {
+        Ellipse()
+            .fill(bodyColor)
+            .overlay(Ellipse().stroke(.white.opacity(0.86), lineWidth: max(2, size * 0.035)))
+            .frame(width: size * 0.72 * scale, height: size * 0.86 * scale)
+    }
+
+    private func ear(width: CGFloat, height: CGFloat) -> some View {
+        Ellipse()
+            .fill(bodyColor)
+            .overlay(Ellipse().stroke(strokeColor, lineWidth: max(1, size * 0.018)))
+            .frame(width: width, height: height)
+    }
+
+    private var foot: some View {
+        Ellipse()
+            .fill(bodyColor)
+            .overlay(Ellipse().stroke(strokeColor, lineWidth: max(1, size * 0.014)))
+            .frame(width: size * 0.18, height: size * 0.12)
+    }
+
+    private var arm: some View {
+        Ellipse()
+            .fill(bodyColor)
+            .overlay(Ellipse().stroke(strokeColor, lineWidth: max(1, size * 0.014)))
+            .frame(width: size * 0.16, height: size * 0.36)
+    }
+
+    private var belly: some View {
+        Ellipse()
+            .fill(.white.opacity(0.74))
+            .frame(width: size * 0.42, height: size * 0.36)
+    }
+
+    private var face: some View {
+        VStack(spacing: size * 0.05) {
+            HStack(spacing: size * 0.17) {
+                Circle()
+                    .fill(.black)
+                    .frame(width: size * 0.075, height: size * 0.075)
+                Circle()
+                    .fill(.black)
+                    .frame(width: size * 0.075, height: size * 0.075)
+            }
+            Capsule()
+                .fill(.black.opacity(0.86))
+                .frame(width: size * 0.17, height: max(2, size * 0.018))
+                .overlay(alignment: .bottom) {
+                    Circle()
+                        .stroke(.black.opacity(0.86), lineWidth: max(1, size * 0.018))
+                        .frame(width: size * 0.18, height: size * 0.10)
+                        .offset(y: -size * 0.005)
+                        .mask(alignment: .bottom) {
+                            Rectangle().frame(height: size * 0.06)
+                        }
+                }
+        }
+    }
+
+    private var sprout: some View {
+        ZStack {
+            Capsule()
+                .fill(Color(red: 0.36, green: 0.55, blue: 0.22))
+                .frame(width: max(2, size * 0.028), height: size * 0.14)
+                .rotationEffect(.degrees(-10))
+                .offset(y: size * 0.05)
+            Ellipse()
+                .fill(Color(red: 0.80, green: 0.92, blue: 0.42))
+                .overlay(Ellipse().stroke(Color(red: 0.36, green: 0.55, blue: 0.22).opacity(0.55), lineWidth: 1))
+                .frame(width: size * 0.15, height: size * 0.08)
+                .rotationEffect(.degrees(32))
+                .offset(x: -size * 0.04, y: -size * 0.02)
+            Ellipse()
+                .fill(Color(red: 0.80, green: 0.92, blue: 0.42))
+                .overlay(Ellipse().stroke(Color(red: 0.36, green: 0.55, blue: 0.22).opacity(0.55), lineWidth: 1))
+                .frame(width: size * 0.15, height: size * 0.08)
+                .rotationEffect(.degrees(-30))
+                .offset(x: size * 0.05, y: -size * 0.03)
+        }
+    }
+}
+
+private extension Color {
+    init?(hex: String) {
+        var value = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        if value.hasPrefix("#") {
+            value.removeFirst()
+        }
+        guard value.count == 6, let intValue = UInt64(value, radix: 16) else { return nil }
+        self.init(
+            red: Double((intValue >> 16) & 0xFF) / 255.0,
+            green: Double((intValue >> 8) & 0xFF) / 255.0,
+            blue: Double(intValue & 0xFF) / 255.0
+        )
     }
 }
 

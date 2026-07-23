@@ -23,7 +23,9 @@ final class PetScene: SKScene {
     // MARK: 节点
 
     private(set) var pet: PetNode?
+    private let boundaryRoot = SKNode()
     private var groundLine: CGFloat = 0
+    private var hasAppliedViewSize = false
 
     // MARK: 闭包（由 View 层注入）
 
@@ -44,11 +46,14 @@ final class PetScene: SKScene {
 
         physicsWorld.gravity = CGVector(dx: 0, dy: -560)      // 接近真实重力
         physicsWorld.contactDelegate = self
-        scaleMode = .aspectFill
+        scaleMode = .resizeFill
         backgroundColor = .clear
+        if boundaryRoot.parent == nil {
+            addChild(boundaryRoot)
+        }
 
         let pet = PetNode(state: state)
-        pet.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        pet.position = CGPoint(x: size.width * 0.63, y: size.height * 0.52)
         pet.name = "pet"
         addChild(pet)
         self.pet = pet
@@ -57,10 +62,33 @@ final class PetScene: SKScene {
         addGroundAndWalls()
     }
 
+    func resize(to newSize: CGSize) {
+        guard newSize.width > 0, newSize.height > 0 else { return }
+        size = newSize
+        addGroundAndWalls()
+
+        guard let pet else { return }
+        let half = pet.size / 2
+        let needsRecentering = !hasAppliedViewSize
+            || pet.position.x < half
+            || pet.position.x > newSize.width - half
+            || pet.position.y < half
+            || pet.position.y > newSize.height - half
+
+        if needsRecentering {
+            pet.position = CGPoint(x: newSize.width * 0.63,
+                                   y: newSize.height * 0.52)
+            pet.physicsBody?.velocity = .zero
+            hasAppliedViewSize = true
+        }
+    }
+
     // MARK: 边界
 
     private func addGroundAndWalls() {
-        groundLine = 60
+        boundaryRoot.removeAllChildren()
+
+        groundLine = max(76, min(size.height * 0.28, 176))
         let thickness: CGFloat = 60
 
         // 地面
@@ -73,7 +101,7 @@ final class PetScene: SKScene {
         ground.physicsBody?.restitution = 0.2
         ground.addChild(makeVisualRect(color: .clear,
                                        size: CGSize(width: size.width * 2, height: thickness)))
-        addChild(ground)
+        boundaryRoot.addChild(ground)
 
         // 左右墙
         for x in [0, size.width] {
@@ -83,7 +111,7 @@ final class PetScene: SKScene {
                                                                   height: size.height * 2))
             wall.physicsBody?.isDynamic = false
             wall.physicsBody?.categoryBitMask = Physics.wall.rawValue
-            addChild(wall)
+            boundaryRoot.addChild(wall)
         }
     }
 
@@ -98,8 +126,12 @@ final class PetScene: SKScene {
 
     func sync(state: PetState) {
         guard let pet else { return }
-        pet.currentForm = state.form
-        pet.mood = state.mood
+        if pet.currentForm != state.form {
+            pet.currentForm = state.form
+        }
+        if pet.mood != state.mood {
+            pet.mood = state.mood
+        }
     }
 
     // MARK: 输入：把 SwiftUI 手势坐标传进来
@@ -120,6 +152,55 @@ final class PetScene: SKScene {
             let dirX: CGFloat = dx > 0 ? 1 : -1
             pet.nudge(dx: dirX * 80, dy: 0)
         }
+    }
+
+    func performAffection() {
+        guard let pet else { return }
+        pet.reactPetted()
+        spawnHearts(at: CGPoint(x: pet.position.x, y: pet.position.y + pet.size * 0.44))
+    }
+
+    func performFeeding(food: Food) {
+        guard let pet else { return }
+        pet.reactFed(food: food)
+        spawnFood(at: CGPoint(x: pet.position.x - pet.size * 0.16,
+                              y: pet.position.y - pet.size * 0.22))
+    }
+
+    func performBathing() {
+        guard let pet else { return }
+        pet.reactBathed()
+        spawnSymbols(text: "💧",
+                     at: CGPoint(x: pet.position.x, y: pet.position.y + pet.size * 0.36),
+                     count: 5,
+                     spread: 56)
+    }
+
+    func performExpedition() {
+        guard let pet else { return }
+        pet.reactExpedition()
+        spawnStars(at: CGPoint(x: pet.position.x + pet.size * 0.20,
+                               y: pet.position.y + pet.size * 0.28))
+    }
+
+    func performReward(text: String) {
+        guard let pet else { return }
+        pet.reactReward(text: text)
+        spawnSymbols(text: "◆",
+                     at: CGPoint(x: pet.position.x, y: pet.position.y + pet.size * 0.48),
+                     count: 4,
+                     spread: 40)
+    }
+
+    func performCharging() {
+        guard let pet else { return }
+        pet.reactCharging()
+        spawnCharging(at: CGPoint(x: pet.position.x - pet.size * 0.22,
+                                  y: pet.position.y + pet.size * 0.42))
+    }
+
+    func performDenied() {
+        pet?.reactDenied()
     }
 
     func handleDoubleTap(at scenePoint: CGPoint) {

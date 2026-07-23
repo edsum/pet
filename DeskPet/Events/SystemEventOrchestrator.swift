@@ -22,24 +22,31 @@ final class SystemEventOrchestrator {
     @MainActor
     func bootstrap(vm: PetViewModel) {
         self.vm = vm
+        stop()
 
-        Task {
-            // 日程（不需要 entitlement，先做）
-            let calendar = CalendarProvider()
-            if await calendar.requestAuthorization() {
-                calendar.start { [weak self] signal in
-                    Task { @MainActor in self?.handle(signal) }
+        Task { @MainActor in
+            let defaults = UserDefaults.standard
+
+            // 日程联动需要用户在设置中主动开启，避免首屏弹权限框
+            if defaults.bool(forKey: "enableCalendarEvents") {
+                let calendar = CalendarProvider()
+                if await calendar.requestAuthorization() {
+                    calendar.start { [weak self] signal in
+                        Task { @MainActor in self?.handle(signal) }
+                    }
+                    providers.append(calendar)
                 }
-                providers.append(calendar)
             }
 
-            // 步数
-            let health = HealthProvider()
-            if await health.requestAuthorization() {
-                health.start { [weak self] signal in
-                    Task { @MainActor in self?.handle(signal) }
+            // 步数联动需要用户在设置中主动开启
+            if defaults.bool(forKey: "enableHealthEvents") {
+                let health = HealthProvider()
+                if await health.requestAuthorization() {
+                    health.start { [weak self] signal in
+                        Task { @MainActor in self?.handle(signal) }
+                    }
+                    providers.append(health)
                 }
-                providers.append(health)
             }
 
             // 勿扰
@@ -51,17 +58,25 @@ final class SystemEventOrchestrator {
                 providers.append(focus)
             }
 
-            // 天气
-            let weather = WeatherProvider()
-            if await weather.requestAuthorization() {
-                weather.start { [weak self] signal in
-                    Task { @MainActor in self?.handle(signal) }
+            // 天气联动需要用户在设置中主动开启
+            if defaults.bool(forKey: "enableWeatherEvents") {
+                let weather = WeatherProvider()
+                if await weather.requestAuthorization() {
+                    weather.start { [weak self] signal in
+                        Task { @MainActor in self?.handle(signal) }
+                    }
+                    providers.append(weather)
                 }
-                providers.append(weather)
             }
         }
     }
 
+    @MainActor
+    func reconfigure(vm: PetViewModel) {
+        bootstrap(vm: vm)
+    }
+
+    @MainActor
     func stop() {
         providers.forEach { $0.stop() }
         providers.removeAll()
@@ -81,6 +96,18 @@ final class SystemEventOrchestrator {
             }
 
         case .stepCount(let steps):
+            if steps >= 0 {
+                let pet = vm?.state
+                let name = pet?.name ?? "小毛"
+                Task { @MainActor in
+                    await ActivityController.shared.updateStatus(
+                        petName: name,
+                        petID: pet?.petID,
+                        steps: steps
+                    )
+                }
+            }
+
             // -1 是约定信号：达到 5000 步
             if steps == -1, !stepRewardedToday {
                 stepRewardedToday = true
@@ -101,6 +128,15 @@ final class SystemEventOrchestrator {
             }
 
         case .weatherChanged(let condition):
+            let pet = vm?.state
+            let name = pet?.name ?? "小毛"
+            Task { @MainActor in
+                await ActivityController.shared.updateStatus(
+                    petName: name,
+                    petID: pet?.petID,
+                    weather: condition.lockScreenText
+                )
+            }
             applyWeather(condition)
         }
     }
@@ -126,6 +162,20 @@ final class SystemEventOrchestrator {
             vm?.setMood(.sleeping)
         default:
             vm?.recomputeMood()
+        }
+    }
+}
+
+private extension WeatherCondition {
+    var lockScreenText: String {
+        switch self {
+        case .clear: return "晴朗"
+        case .cloudy: return "多云"
+        case .rain: return "下雨"
+        case .snow: return "下雪"
+        case .hot: return "炎热"
+        case .cold: return "寒冷"
+        case .windy: return "有风"
         }
     }
 }
